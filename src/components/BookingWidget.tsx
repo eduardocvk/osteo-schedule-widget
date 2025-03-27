@@ -6,16 +6,24 @@ import BookingForm from './BookingForm';
 import ConfirmationModal from './ConfirmationModal';
 import { Button } from "@/components/ui/button";
 import { Calendar, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { Loader } from 'lucide-react';
 
 const BookingSteps: React.FC = () => {
   const { 
     bookingStep, 
     isBookingComplete, 
-    resetBooking 
+    resetBooking,
+    isLoading
   } = useBooking();
   
   return (
     <div className="glass-card w-full max-w-xl mx-auto overflow-hidden">
+      {isLoading && (
+        <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10">
+          <Loader className="h-8 w-8 text-osteo-500 animate-spin" />
+        </div>
+      )}
+      
       {!isBookingComplete ? (
         <>
           <header className="border-b border-gray-100 p-4">
@@ -32,7 +40,7 @@ const BookingSteps: React.FC = () => {
             </div>
           </header>
           
-          <div className="min-h-[400px]">
+          <div className="min-h-[400px] relative">
             {bookingStep === 1 && <CalendarView />}
             {bookingStep === 2 && <BookingForm />}
           </div>
