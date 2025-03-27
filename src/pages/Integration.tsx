@@ -95,7 +95,7 @@ export default OsteoWidget;`;
             <h3 className="font-medium text-amber-800 mb-2">Nota importante</h3>
             <p className="text-sm text-amber-700">
               Para que la integración funcione correctamente, esta aplicación debe estar publicada en un servicio de hosting.
-              Si estás usando el enlace de prueba de Lovable, reemplaza esa URL en los ejemplos siguientes.
+              El archivo <code>widget.js</code> ya está disponible en la carpeta <code>public/</code> de esta aplicación.
             </p>
           </div>
           
@@ -166,30 +166,44 @@ export default OsteoWidget;`;
         </div>
         
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-4">Creación del archivo widget.js</h2>
+          <h2 className="text-xl font-semibold mb-4">El archivo widget.js</h2>
           <p className="mb-4">
-            Para que la integración funcione, deberás crear y publicar un archivo <code>widget.js</code> en la raíz de tu sitio web publicado que contenga una versión empaquetada del widget.
+            Para integrar el widget en tu sitio web, necesitas acceder al archivo <code>widget.js</code> que ya se encuentra disponible en esta aplicación.
           </p>
           
           <div className="p-4 bg-gray-50 rounded-md mb-4">
-            <h3 className="font-medium mb-2">Pasos para crear widget.js</h3>
+            <h3 className="font-medium mb-2">¿Cómo usar widget.js?</h3>
             <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
-              <li>Publica esta aplicación en un servicio de hosting (Vercel, Netlify, etc.)</li>
-              <li>Crea un archivo <code>widget.js</code> que exporte la funcionalidad del widget</li>
-              <li>Sube este archivo a la raíz de tu aplicación publicada</li>
-              <li>Usa la URL de ese archivo en tus integraciones</li>
+              <li>La URL del widget será <code>{baseUrl}/widget.js</code></li>
+              <li>Puedes acceder directamente a este archivo desde tu sitio web</li>
+              <li>El widget se comunicará automáticamente con esta aplicación para realizar las reservas</li>
             </ol>
           </div>
           
           <div className="p-4 bg-gray-50 rounded-md mb-4">
-            <h3 className="font-medium mb-2">Estructura de carpetas recomendada</h3>
+            <h3 className="font-medium mb-2">Ejemplo de implementación</h3>
             <pre className="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-{`tu-sitio-web/
-├── index.html
-├── widget.js  <-- archivo de integración
-├── assets/
-└── ...`}
+{`// En tu sitio web
+<div id="osteo-widget"></div>
+<script src="${baseUrl}/widget.js"></script>
+<script>
+  OsteoWidget.init({
+    container: 'osteo-widget',
+    theme: 'light',
+    lang: 'es'
+  });
+</script>`}
             </pre>
+          </div>
+          
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-md mt-6">
+            <h3 className="font-medium text-blue-800 mb-2">Parámetros de configuración</h3>
+            <ul className="list-disc list-inside space-y-1 text-sm text-blue-700">
+              <li><strong>container</strong>: ID del elemento donde se mostrará el widget (obligatorio)</li>
+              <li><strong>theme</strong>: 'light' o 'dark' (opcional, por defecto 'light')</li>
+              <li><strong>lang</strong>: idioma del widget, 'es' o 'en' (opcional, por defecto 'es')</li>
+              <li><strong>apiKey</strong>: Tu clave API si utilizas la autenticación (opcional)</li>
+            </ul>
           </div>
         </div>
         
