@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { endOfMonth, format, parseISO, startOfMonth } from 'date-fns';
 import { useToast } from '@/hooks/use-toast';
+import { type Database } from '@/types/supabase.types';
 
 type Availability = Database['public']['Tables']['availability']['Row'];
 type AvailabilityInsert = Database['public']['Tables']['availability']['Insert'];

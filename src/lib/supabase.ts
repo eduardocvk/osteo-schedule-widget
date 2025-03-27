@@ -2,12 +2,9 @@
 import { createClient } from '@supabase/supabase-js';
 import { type Database } from '@/types/supabase.types';
 
-// Obtiene las variables de entorno que Supabase proporciona automáticamente al integrar
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Faltan las variables de entorno de Supabase. Por favor, asegúrate de que la integración está configurada correctamente.');
-}
+// Usamos las claves publicables directamente en el código para desarrollo
+// En producción, estas claves vendrían de las variables de entorno
+const supabaseUrl = 'https://bprvtbzhgdnxmnkbmdcq.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwcnZ0YnpoZ2RueG1ua2JtZGNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY4OTI3OTgsImV4cCI6MjAzMjQ2ODc5OH0.SYas-gSfAfaRHwTDiSqTNyJu9BTQ4wBB2FN0vA_HLN8';
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
