@@ -9,8 +9,11 @@ import { toast } from "sonner";
 const Integration = () => {
   const [isCopied, setIsCopied] = useState(false);
   
+  // Obtenemos la URL base actual para usarla en los ejemplos
+  const baseUrl = window.location.origin;
+  
   const integrationCode = `<div id="osteo-widget"></div>
-<script src="https://cdn.example.com/osteo-widget.js"></script>
+<script src="${baseUrl}/widget.js"></script>
 <script>
   OsteoWidget.init({
     container: 'osteo-widget',
@@ -26,7 +29,7 @@ function OsteoWidget() {
   useEffect(() => {
     // Cargar script
     const script = document.createElement('script');
-    script.src = 'https://cdn.example.com/osteo-widget.js';
+    script.src = '${baseUrl}/widget.js';
     script.async = true;
     script.onload = () => {
       // @ts-ignore
@@ -50,7 +53,7 @@ function OsteoWidget() {
 export default OsteoWidget;`;
 
   const iframeCode = `<iframe 
-  src="https://tu-dominio.com/widget" 
+  src="${baseUrl}/widget" 
   width="100%" 
   height="600" 
   frameborder="0"
@@ -80,13 +83,21 @@ export default OsteoWidget;`;
             </h1>
           </div>
           <p className="text-gray-600 max-w-3xl">
-            Integra fácilmente nuestro widget de reservas de osteopatía en tu sitio web. Sigue las instrucciones a continuación
-            para cualquier plataforma.
+            Integra fácilmente nuestro widget de reservas de osteopatía en tu sitio web. Las siguientes instrucciones asumen
+            que ya has publicado esta aplicación en un dominio accesible.
           </p>
         </header>
         
         <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
           <h2 className="text-xl font-semibold mb-4">Opciones de integración</h2>
+          
+          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-md">
+            <h3 className="font-medium text-amber-800 mb-2">Nota importante</h3>
+            <p className="text-sm text-amber-700">
+              Para que la integración funcione correctamente, esta aplicación debe estar publicada en un servicio de hosting.
+              Si estás usando el enlace de prueba de Lovable, reemplaza esa URL en los ejemplos siguientes.
+            </p>
+          </div>
           
           <Tabs defaultValue="script">
             <TabsList className="grid w-full grid-cols-3 mb-6">
@@ -155,36 +166,30 @@ export default OsteoWidget;`;
         </div>
         
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-4">Configuración avanzada</h2>
+          <h2 className="text-xl font-semibold mb-4">Creación del archivo widget.js</h2>
           <p className="mb-4">
-            El widget de reservas admite varias opciones de configuración para personalizar su comportamiento y apariencia:
+            Para que la integración funcione, deberás crear y publicar un archivo <code>widget.js</code> en la raíz de tu sitio web publicado que contenga una versión empaquetada del widget.
           </p>
           
-          <div className="grid gap-4">
-            <div className="p-4 bg-gray-50 rounded-md">
-              <h3 className="font-medium mb-2">API Key</h3>
-              <p className="text-sm text-gray-600">
-                Obtén tu API key desde el panel de administración. 
-                <a href="/admin" className="text-osteo-500 hover:underline ml-1 inline-flex items-center">
-                  Ir al panel
-                  <ExternalLink className="h-3 w-3 ml-1" />
-                </a>
-              </p>
-            </div>
-            
-            <div className="p-4 bg-gray-50 rounded-md">
-              <h3 className="font-medium mb-2">Temas</h3>
-              <p className="text-sm text-gray-600">
-                Personaliza los colores y estilos del widget para que coincida con la identidad de tu marca.
-              </p>
-            </div>
-            
-            <div className="p-4 bg-gray-50 rounded-md">
-              <h3 className="font-medium mb-2">Idiomas</h3>
-              <p className="text-sm text-gray-600">
-                El widget está disponible en español por defecto, pero puede configurarse para otros idiomas.
-              </p>
-            </div>
+          <div className="p-4 bg-gray-50 rounded-md mb-4">
+            <h3 className="font-medium mb-2">Pasos para crear widget.js</h3>
+            <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
+              <li>Publica esta aplicación en un servicio de hosting (Vercel, Netlify, etc.)</li>
+              <li>Crea un archivo <code>widget.js</code> que exporte la funcionalidad del widget</li>
+              <li>Sube este archivo a la raíz de tu aplicación publicada</li>
+              <li>Usa la URL de ese archivo en tus integraciones</li>
+            </ol>
+          </div>
+          
+          <div className="p-4 bg-gray-50 rounded-md mb-4">
+            <h3 className="font-medium mb-2">Estructura de carpetas recomendada</h3>
+            <pre className="bg-gray-800 text-gray-200 p-3 rounded text-sm">
+{`tu-sitio-web/
+├── index.html
+├── widget.js  <-- archivo de integración
+├── assets/
+└── ...`}
+            </pre>
           </div>
         </div>
         
